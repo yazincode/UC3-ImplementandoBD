@@ -39,6 +39,7 @@
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.lblBuscar = new System.Windows.Forms.Label();
             this.lstContatos = new System.Windows.Forms.ListView();
+            this.btnNovo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblNome
@@ -91,16 +92,17 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(137, 216);
+            this.btnSalvar.Location = new System.Drawing.Point(117, 220);
             this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(75, 23);
+            this.btnSalvar.Size = new System.Drawing.Size(95, 23);
             this.btnSalvar.TabIndex = 6;
-            this.btnSalvar.Text = "Salvar";
+            this.btnSalvar.Text = "Salvar/Atualizar";
             this.btnSalvar.UseVisualStyleBackColor = true;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
             // btnBuscar
             // 
+            this.btnBuscar.Cursor = System.Windows.Forms.Cursors.AppStarting;
             this.btnBuscar.Location = new System.Drawing.Point(605, 220);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
@@ -127,18 +129,32 @@
             // 
             // lstContatos
             // 
+            this.lstContatos.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.lstContatos.HideSelection = false;
             this.lstContatos.Location = new System.Drawing.Point(234, 71);
             this.lstContatos.Name = "lstContatos";
             this.lstContatos.Size = new System.Drawing.Size(446, 143);
             this.lstContatos.TabIndex = 11;
             this.lstContatos.UseCompatibleStateImageBehavior = false;
+            this.lstContatos.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lstContatos_ItemSelectionChanged);
+            this.lstContatos.SelectedIndexChanged += new System.EventHandler(this.lstContatos_SelectedIndexChanged);
+            // 
+            // btnNovo
+            // 
+            this.btnNovo.Location = new System.Drawing.Point(33, 220);
+            this.btnNovo.Name = "btnNovo";
+            this.btnNovo.Size = new System.Drawing.Size(78, 23);
+            this.btnNovo.TabIndex = 15;
+            this.btnNovo.Text = "Novo";
+            this.btnNovo.UseVisualStyleBackColor = true;
+            this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
             // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(725, 274);
+            this.Controls.Add(this.btnNovo);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.lblBuscar);
@@ -170,6 +186,7 @@
         private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.Label lblBuscar;
         private System.Windows.Forms.ListView lstContatos;
+        private System.Windows.Forms.Button btnNovo;
     }
 }
 
