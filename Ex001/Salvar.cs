@@ -92,8 +92,7 @@ namespace Ex001
                                     MessageBoxIcon.Information);
                 }
 
-
-
+                #region Codigo Antigo
                 /* string sql = "INSERT INTO contato (nome, email, telefone) VALUES ('" + txtNome.Text + "','" + txtEmail.Text + "','" + txtTelefone.Text + "')";
 
                 // Executar Comando Insert
@@ -106,6 +105,9 @@ namespace Ex001
                 // Mostrando a Mensagem para o Usuário
                 //MessageBox.Show("Dados Inseridos com Sucesso!!!");
                 // apagando o formulario após a inserção dos dados
+
+                #endregion
+
                 id_contato_selecionado = null;
                 txtNome.Text = String.Empty;
                 txtEmail.Text = String.Empty;
@@ -231,6 +233,7 @@ namespace Ex001
 
         private void lstContatos_SelectedIndexChanged(object sender, EventArgs e)
         {
+            #region Codigo Antigo
             /*ListView.SelectedListViewItemCollection itens_selecionados = lstContatos.SelectedItems;
 
             // percorrendo a coleção de itens dentro da lista itens_selecionados
@@ -246,6 +249,8 @@ namespace Ex001
 
                 //  MessageBox.Show("Id Selecionado = " + id_contato_selecionado);
             }*/
+
+            #endregion
         }
 
         private void lstContatos_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
@@ -265,6 +270,8 @@ namespace Ex001
 
                 //  MessageBox.Show("Id Selecionado = " + id_contato_selecionado);
             }
+
+            btnExcluir.Visible = true;
         }
 
         private void carregar_contatos()
@@ -317,11 +324,83 @@ namespace Ex001
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
+            zerar_Forms();
+        }
+
+        private void cmsExcluir_Click(object sender, EventArgs e)
+        {
+            excluir_contato();
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            excluir_contato();
+        }
+
+        private void zerar_Forms()
+        {
             id_contato_selecionado = null;
             txtNome.Text = String.Empty;
-            txtEmail.Text = String.Empty;
-            txtTelefone.Text = String.Empty;
+            txtEmail.Text = "";
+            txtTelefone.Text = "";
             txtNome.Focus();
+        }
+
+        private void excluir_contato()
+        {
+            try
+            {
+
+                DialogResult conf = MessageBox.Show("Deseja Excluir o Registro com ?",
+                                                    "Certeza ?",
+                                                       MessageBoxButtons.YesNo,
+                                                       MessageBoxIcon.Warning);
+
+                if (conf == DialogResult.Yes)
+                {
+
+
+                    Conexao = new MySqlConnection(data_source);
+                    Conexao.Open();
+                    MySqlCommand cmd = new MySqlCommand();
+                    cmd.Connection = Conexao;
+
+                    cmd.Connection = Conexao;
+                    cmd.CommandText = "DELETE FROM contato WHERE id=@id";
+                    cmd.Parameters.AddWithValue("@id", id_contato_selecionado);
+
+                    cmd.ExecuteNonQuery();
+
+
+                    MessageBox.Show(
+                            "Contato Excluido com Sucesso!",
+                            "Sucesso", MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                            );
+
+
+                    carregar_contatos();
+
+
+                    zerar_Forms();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Erro " + ex.Number + "Ocorreu: " + ex.Message,
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Ocorreu: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            finally
+            {
+                Conexao.Close();
+            }
         }
     }
 }
